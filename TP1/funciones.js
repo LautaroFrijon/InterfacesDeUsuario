@@ -1,117 +1,59 @@
 document.addEventListener("DOMContentLoaded", function(){
 
-//Lapiz
-
+//Variables.
 var canvas = document.querySelector('#canvas');
 var ctx = canvas.getContext('2d');
-
-/*ctx.fillStyle = "#FFFFFF";
-ctx.fillRect(25, 25, 500, 500);*/
+var imageData = ctx.createImageData(1000, 700);
 
 
-let rect = canvas.getBoundingClientRect();
-let x=0, y=0, dibujando = false, color = 'black', grosor = 1;
+var color = 'black';
+var grosor = 1;
+var dibujando = false;
+var x = -1;
+var y = -1;
 
-function defColor(c){
-    color=c;
-}
+////Lapiz.
 
-
-
-function defGrosor(g){
-    grosor=g;
-}
-
-function dibujar(x1, y1, x2, y2){
-    ctx.beginPath();
-    ctx.strokeStyle = color;
-    ctx.lineWidth = grosor;
-    ctx.moveTo(x1,y1);
-    ctx.lineTo(x2,y2);
-    ctx.stroke();
-    ctx.closePath();
-}
-
-canvas.addEventListener('mousedown', function(e){
-    x = e.clientX - rect.left;
-    y = e.clientY - rect.top;
+canvas.addEventListener("mousedown", function(){
     dibujando = true;
-});
-
-canvas.addEventListener('mousemove', function(e){
-    if(dibujando === true){
-        dibujar(x, y,  e.clientX - rect.left, e.clientY - rect.top)
-        x = e.clientX - rect.left;
-        y = e.clientY - rect.top;
+  });
+  
+  canvas.addEventListener("mouseup", function(){
+    dibujando = false;
+      x = -1;
+      y = -1;
+  });
+  
+  
+  canvas.addEventListener("mousemove", function(e){
+    var x2 = e.layerX - 15;
+    var y2 = e.layerY;
+    if (dibujando){
+      ctx.lineCap = "round";
+      ctx.lineWidth = grosor;
+      ctx.strokeStyle = color;
+      ctx.beginPath();
+      ctx.moveTo(x,y);
+      if(x != -1 && y != -1){
+          ctx.moveTo(x, y);
+      }
+      ctx.lineTo(x, y);
+      ctx.stroke();
+      x = x2;
+      y = y2;
     }
-});
+  });
 
-canvas.addEventListener('mouseup', function(e){
-    if(dibujando === true){
-        dibujar(x, y,  e.clientX - rect.left, e.clientY - rect.top);
-        x=0;
-        y=0;
-        dibujando = false;
-    }
-});
+
+
+
+
 
 //Subir imagen.
-var imagen = document.querySelector('#subir');
-    imagen.addEventListener('change', subirImagen, false);
 
-function subirImagen(e){
-    var reader = new FileReader();
-    reader.onload = function(event){
-        var img = new Image();
-        img.onload = function(){
-          if ((img.width > canvas.width ) || (img.height > canvas.height )){
-            if ( (canvas.width/img.width) > (img.height/canvas.height) ){
-                  ctx.drawImage(img, 0, (canvas.height - img.height*canvas.width/img.width)/2, canvas.width, img.height*canvas.width/img.width);
-            }
-            else {
-                  ctx.drawImage(img, (canvas.width - img.width*canvas.height/img.height)/2, 0, img.width*canvas.height/img.height, canvas.height);
-            }
-          }
-          else {
-                  ctx.drawImage(img,(canvas.width - img.width)/2,(canvas.height - img.height)/2);
-          }
-        }
-        img.src = event.target.result;
-    }
-    /*esconderMenues();
-    actualizarFiltros();*/
-    reader.readAsDataURL(e.target.files[0]);
-}
+   
 
 
-
-/*let height = canvas.height = window.innerHeight;
-let width = canvas.width = window.innerWidth;*/
-
-
-/*var mouseClicked = false, mouseReleased = true;
-
-function onMouseClick(e){
-    mouseClicked = !mouseClicked;
-}
-
-function getRandomColor(){
-    let letters = '0123456789ABCDEF';
-    let color = '#';
-    for(let i = 0; i<6; i++ ){
-        color += letters[Math.floor(Math.random()*16)];
-    }
-    return color;
-}
-
-function onMouseMove(e){
-    if(mouseClicked){
-        ctx.beginPath();
-        ctx.arc(e.clientX, e.clientY, 7.5, 0, Math.PI*2, false);
-        ctx.lineWith = 5;
-        ctx.stroke();
-    }
-}*/
 
 
 //Resetear canvas
