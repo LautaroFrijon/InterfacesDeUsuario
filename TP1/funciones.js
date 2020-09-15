@@ -13,14 +13,14 @@ var x = -1;
 var y = -1;
 
 //Eventos
-document.querySelector("#i_file").addEventListener("click", cargarImagen);
-document.querySelector("#grises").addEventListener("click", grises);
-document.querySelector("negativo").addEventListener("click", negativo);
-document.querySelector("#binarizacion").addEventListener("click", binarizacion);
-document.querySelector("#sepia").addEventListener("click", sepia);
+document.getElementById("i_file").addEventListener("click", cargarImagen);
+document.getElementById("grises").addEventListener("click", grises);
+document.getElementById("negativo").addEventListener("click", negativo);
+document.getElementById("binarizacion").addEventListener("click", binarizacion);
+document.getElementById("sepia").addEventListener("click", sepia);
 
-document.querySelector("#bordes").addEventListener("click", bordes);
-document.querySelector("#saturacion").addEventListener("click", saturacion);
+document.getElementById("bordes").addEventListener("click", bordes);
+document.getElementById("saturacion").addEventListener("click", saturacion);
 
 //Lapiz.
 
@@ -77,7 +77,7 @@ canvas.addEventListener("mousedown", function(){
   }
   
   //Resetear canvas
-  var nuevo = document.querySelector("#limpiar");
+  var nuevo = document.getElementById("limpiar");
   nuevo.addEventListener("click", function(){
       for (x = 0; x < canvas.width; x++){
         for (y = 0; y < canvas.heigth; y++){
@@ -97,14 +97,14 @@ canvas.addEventListener("mousedown", function(){
 
 //Subir imagen.
 
-var guardarImagen = document.querySelector("#guardar");
+var guardarImagen = document.getElementById("guardar");
 guardarImagen.addEventListener("click", function(){
   var img = canvas.toDataURL("image/png");
   this.href = img;
 });
 
 function cargarImagen(){
-  var file = document.querySelector('#i_file');
+  var file = document.getElementById('i_file');
   file.onchange = function(e){
     var img = new Image();
     img.src = URL.createObjectURL(e.target.files[0]);
