@@ -16,6 +16,8 @@ function defColor(c){
     color=c;
 }
 
+
+
 function defGrosor(g){
     grosor=g;
 }
@@ -53,8 +55,8 @@ canvas.addEventListener('mouseup', function(e){
     }
 });
 
-//Goma.
-/*var imagen = document.getElementById('subir');
+//Subir imagen.
+var imagen = document.querySelector('#subir');
     imagen.addEventListener('change', subirImagen, false);
 
 function subirImagen(e){
@@ -76,10 +78,10 @@ function subirImagen(e){
         }
         img.src = event.target.result;
     }
-    esconderMenues();
-    actualizarFiltros();
+    /*esconderMenues();
+    actualizarFiltros();*/
     reader.readAsDataURL(e.target.files[0]);
-}*/
+}
 
 
 
@@ -120,6 +122,6 @@ let height = 500;
 
 function resetearCanvas(canvas) {
     ctx.clearRect(0, 0, width, height);
-  };
+};
 
 })
